@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Items in Cart";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>See and Edit things in your Cart</p>
+<table id="tableCart">
+    
+    
+    
+</table>
+<script>
+document.addEventListener("DOMContentLoaded", function(){loadCart()})
+
+function loadCart() {
+var items = sessionStorage.getItem('cartItems');
+var newTable = items.split(",")
+const table = document.getElementById('tableCart');
+newTable.forEach(function (item)
+{
+    var tr= document.createElement('tr')
+    
+    const td1 = document.createElement('td');
+    const td2 = document.createElement('td');
+    td1.innerHTML = item.replaceAll('"',"")
+    // td1.innerHTML = item.replaceAll('[',"")
+    // td1.innerHTML = item.replaceAll(']',"")
+    tr.appendChild(td1)
+    table.appendChild(tr)
+    
+
+    
+    }
+    )
+    }
+    
+
+</script>

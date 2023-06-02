@@ -19,6 +19,7 @@
     <header>
         <div id="header"></div>
     </header>
+    <div id ="cart" onclick=""> Check cart</div>
     <label for="category"> Select Category</label>
     <select id="category" name="category">
         @foreach (string category in Categories)
@@ -57,6 +58,15 @@
 
        )
        
+       
+      document.getElementById("cart").addEventListener("click", function ()
+      {
+          //var selectedValue = document.getElementById("category").value;
+          window.location.href="/home/cart";
+          }
+          
+  
+          )
      function itemQuantifier(){
         
                    var items = sessionStorage.getItem('cartItems');
