@@ -1,0 +1,69 @@
+﻿@using WebApplication2.Controllers
+
+@{
+    ViewData["Title"] = "Home Page";
+    ListOfProducts list = new ListOfProducts();
+    // list.ReadCSV();
+    List<Product> listOfP = list.ProductList();
+    List<string> Categories = list.ListOfCategories();
+    
+    
+    
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <body>
+    <label for="category"> Select Category</label>
+    <select id="category" name="category" value =@Context.Request.Path.ToString().Split('/')[3]>
+        @foreach (string category in Categories)
+        {
+            <option value="@category">@category</option>
+        }
+    </select>
+    <button id="submit">Submit</button>
+    <script>
+    document.getElementById("submit").addEventListener("click", function ()
+    {
+        var selectedValue = document.getElementById("category").value;
+        window.location.href="/home/category/"+selectedValue;
+        }
+        
+
+        )
+    </script>
+
+
+    <table>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Desciption</th>
+            <th>Category</th>
+            <th>Image</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (Product product in listOfP)
+        {
+            
+            if (product.Category ==@Context.Request.Path.ToString().Split('/')[3] )
+            {
+
+                <tr>
+                    <td> @product.Title</td>
+                    <td> @product.Description</td>
+                    <td> @product.Category</td>
+                    <td> @product.Image</td>
+                    <td> @product.Price</td>
+                </tr>
+
+            }
+        }
+
+        </tbody>
+    </table>
+    </body>
+</div>

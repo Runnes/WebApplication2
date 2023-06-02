@@ -1,0 +1,19 @@
+@using WebApplication2.Controllers
+@{
+ViewData["Title"] = "Home Page";
+ListOfProducts list = new ListOfProducts();
+// list.ReadCSV();
+List<Product> listOfP = list.ProductList();
+    List<string> Categories = list.ListOfCategories();
+
+        }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
