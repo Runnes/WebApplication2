@@ -1,6 +1,7 @@
 ﻿@using WebApplication2.Controllers
+@using System.Reflection.Metadata
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Welcome";
     ListOfProducts list = new ListOfProducts();
     // list.ReadCSV();
     List<Product> listOfP = list.ProductList();
@@ -15,29 +16,27 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <body>
+    <header>
+        <div id="header"></div>
+    </header>
     <label for="category"> Select Category</label>
-    <select id="category" name="category" >
+    <select id="category" name="category">
         @foreach (string category in Categories)
         {
             <option value="@category">@category</option>
         }
     </select>
     <button id="submitCategory">Submit category</button>
-        <label for="supplier"> Select supplier</label>
-        <select id="supplier" name="supplier" >
-            @foreach (string supplier in Suppliers)
-            {
-                <option value="@supplier">@supplier</option>
-            }
-        </select>
+    <label for="supplier"> Select supplier</label>
+    <select id="supplier" name="supplier">
+        @foreach (string supplier in Suppliers)
+        {
+            <option value="@supplier">@supplier</option>
+        }
+    </select>
     <button id="submitSupplier">Submit supplier</button>
-    
-        <div id="cart">
-            <h2>Cart</h2>
-            <ul id="cartItems">
-                <!-- Cart items will be dynamically added here -->
-            </ul>
-        </div>
+
+
     <script>
     document.getElementById("submitCategory").addEventListener("click", function ()
     {
@@ -58,7 +57,14 @@
 
        )
        
-       
+     function itemQuantifier(){
+        
+                   var items = sessionStorage.getItem('cartItems');
+                        if (items === null) {
+                             document.getElementById("header").innerHTML = 0;
+                        }
+                        document.getElementById("header").innerHTML = document.getElementById("cartItems").childNodes.length.toString();
+       }
        
      function addToCart(product) {
                  // Make an AJAX call to add the product to the cart on the server-side
@@ -127,12 +133,18 @@
                     <td> @product.Category</td>
                     <td> @product.Image</td>
                     <td> @product.Price</td>
-                    <td> @product.Supplier <button onclick="addToCart('@product.Title')">Add to Cart</button> </td> 
+                    <td> @product.Supplier <button onclick="addToCart('@product.Title') ;itemQuantifier()">Add to Cart</button> </td>
                 </tr>
             }
         }
 
         </tbody>
     </table>
+    <div id="cart">
+        <h2>Cart</h2>
+        <ul id="cartItems">
+            <!-- Cart items will be dynamically added here -->
+        </ul>
+    </div>
     </body>
 </div>
