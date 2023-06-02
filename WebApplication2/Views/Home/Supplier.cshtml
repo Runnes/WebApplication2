@@ -65,11 +65,10 @@
         </tr>
         </thead>
         <tbody>
-        
         @foreach (Product product in listOfP)
         {
-
-            if (product.Category == @Context.Request.Path.ToString().Split('/')[3])
+            
+            if (product.Supplier ==@Context.Request.Path.ToString().Split('/')[3] )
             {
 
                 <tr>

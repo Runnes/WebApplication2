@@ -66,5 +66,21 @@ public class ListOfProducts
         }
 
         return CategoryList;
+        
+        
+    }
+
+    public List<string> ListOfSuppliers()
+    {
+        List<string> SuppliersList = new List<string>();
+        foreach (Product product in productList)
+        {
+            if (!SuppliersList.Contains(product.Supplier))
+            {
+                SuppliersList.Add(product.Supplier);
+            }
+        }
+
+        return SuppliersList;
     }
 }

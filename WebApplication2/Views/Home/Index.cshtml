@@ -5,6 +5,9 @@
     // list.ReadCSV();
     List<Product> listOfP = list.ProductList();
     List<string> Categories = list.ListOfCategories();
+    List<string> Suppliers = list.ListOfSuppliers();
+    
+    
     
 }
 
@@ -13,15 +16,23 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <body>
     <label for="category"> Select Category</label>
-    <select id="category" name="category">
+    <select id="category" name="category" >
         @foreach (string category in Categories)
         {
             <option value="@category">@category</option>
         }
     </select>
-    <button id="submit">Submit</button>
+    <button id="submitCategory">Submit category</button>
+        <label for="supplier"> Select supplier</label>
+        <select id="supplier" name="supplier" >
+            @foreach (string supplier in Suppliers)
+            {
+                <option value="@supplier">@supplier</option>
+            }
+        </select>
+        <button id="submitSupplier">Submit supplier</button>
     <script>
-    document.getElementById("submit").addEventListener("click", function ()
+    document.getElementById("submitCategory").addEventListener("click", function ()
     {
         var selectedValue = document.getElementById("category").value;
         window.location.href="/home/category/"+selectedValue;
@@ -29,8 +40,18 @@
         
 
         )
+        
+        
+   document.getElementById("submitSupplier").addEventListener("click", function ()
+   {
+       var selectedValue = document.getElementById("supplier").value;
+       window.location.href="/home/supplier/"+selectedValue;
+       }
+       
+
+       )
     </script>
- 
+
 
     <table>
         <thead>
@@ -40,6 +61,7 @@
             <th>Category</th>
             <th>Image</th>
             <th>Price</th>
+            <th>Supplier</th>
         </tr>
         </thead>
         <tbody>
@@ -53,6 +75,7 @@
                     <td> @product.Category</td>
                     <td> @product.Image</td>
                     <td> @product.Price</td>
+                    <td> @product.Supplier</td>
                 </tr>
             }
         }
