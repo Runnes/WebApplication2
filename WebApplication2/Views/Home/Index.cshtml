@@ -30,7 +30,14 @@
                 <option value="@supplier">@supplier</option>
             }
         </select>
-        <button id="submitSupplier">Submit supplier</button>
+    <button id="submitSupplier">Submit supplier</button>
+    
+        <div id="cart">
+            <h2>Cart</h2>
+            <ul id="cartItems">
+                <!-- Cart items will be dynamically added here -->
+            </ul>
+        </div>
     <script>
     document.getElementById("submitCategory").addEventListener("click", function ()
     {
@@ -50,6 +57,51 @@
        
 
        )
+       
+       
+       
+     function addToCart(product) {
+                 // Make an AJAX call to add the product to the cart on the server-side
+                 // In this example, we're using a simplified approach by updating the cart directly on the client-side
+     
+                 // Check if the cartItems array exists in session storage
+                 var cartItems = sessionStorage.getItem('cartItems');
+                 if (cartItems === null) {
+                     cartItems = [];
+                 } else {
+                     cartItems = JSON.parse(cartItems);
+                 }
+     
+                 // Add the product to the cart
+                 cartItems.push(product);
+     
+                 // Update the cartItems array in session storage
+                 sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+     
+                 // Update the cart display
+                 updateCartDisplay();
+             }
+     
+             function updateCartDisplay() {
+                 var cartItems = sessionStorage.getItem('cartItems');
+                 if (cartItems === null) {
+                     cartItems = [];
+                 } else {
+                     cartItems = JSON.parse(cartItems);
+                 }
+     
+                 var cartItemsList = document.getElementById('cartItems');
+                 cartItemsList.innerHTML = '';
+     
+                 for (var i = 0; i < cartItems.length; i++) {
+                     var listItem = document.createElement('li');
+                     listItem.textContent = cartItems[i];
+                     cartItemsList.appendChild(listItem);
+                 }
+             }
+     
+             // Update the cart display on page load
+             updateCartDisplay();
     </script>
 
 
@@ -70,12 +122,12 @@
             if (product.Category == "Transportation")
             {
                 <tr>
-                    <td> @product.Title</td>
+                    <td> @product.Title </td>
                     <td> @product.Description</td>
                     <td> @product.Category</td>
                     <td> @product.Image</td>
                     <td> @product.Price</td>
-                    <td> @product.Supplier</td>
+                    <td> @product.Supplier <button onclick="addToCart('@product.Title')">Add to Cart</button> </td> 
                 </tr>
             }
         }
